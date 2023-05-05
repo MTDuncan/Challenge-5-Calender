@@ -3,34 +3,34 @@ $(function () {
   var today = dayjs().format("dddd, MMMM D");
   $("#currentDay").text(today);
 
-  // Generate time blocks for standard business hours (9AM to 5PM)
   var startHour = 9;
-  var endHour = 17;
-  for (var hour = startHour; hour <= endHour; hour++) {
-    // Create a new time block element
-    var timeBlockEl = $("<div>").attr("id", "hour-" + hour).addClass("row time-block");
+var endHour = 17;
+for (var hour = startHour; hour <= endHour; hour++) {
+  // Create a new time block element
+  var timeBlockEl = $("<div>").attr("id", "hour-" + hour).addClass("row time-block");
 
-    // Create the hour label element
-    var hourLabelEl = $("<div>").addClass("col-2 col-md-1 hour text-center py-3").text(dayjs(hour, "H").format("hA"));
+  // Create the hour label element
+  var hourLabelEl = $("<div>").addClass("col-2 col-md-1 hour text-center py-3").text(dayjs().hour(hour).minute(0).format("hA"));
 
-    // Create the description textarea element
-    var descriptionEl = $("<textarea>").addClass("col-8 col-md-10 description").attr("rows", 3);
+  // Create the description textarea element
+  var descriptionEl = $("<textarea>").addClass("col-8 col-md-10 description").attr("rows", 3);
 
-    // Load any saved events for this time block from local storage
-    var savedEvent = localStorage.getItem("hour-" + hour);
-    if (savedEvent) {
-      descriptionEl.val(savedEvent);
-    }
-
-    // Create the save button element
-    var saveBtnEl = $("<button>").addClass("btn saveBtn col-2 col-md-1").attr("aria-label", "save").html('<i class="fas fa-save" aria-hidden="true"></i>');
-
-    // Add the elements to the time block element
-    timeBlockEl.append(hourLabelEl, descriptionEl, saveBtnEl);
-
-    // Add the time block element to the container
-    $(".container-lg").append(timeBlockEl);
+  // Load any saved events for this time block from local storage
+  var savedEvent = localStorage.getItem("hour-" + hour);
+  if (savedEvent) {
+    descriptionEl.val(savedEvent);
   }
+
+  // Create the save button element
+  var saveBtnEl = $("<button>").addClass("btn saveBtn col-2 col-md-1").attr("aria-label", "save").html('<i class="fas fa-save" aria-hidden="true"></i>');
+
+  // Add the elements to the time block element
+  timeBlockEl.append(hourLabelEl, descriptionEl, saveBtnEl);
+
+  // Add the time block element to the container
+  $(".container-lg").append(timeBlockEl);
+}
+
 
   // Color-code the time blocks based on whether they are in the past, present, or future
   $(".time-block").each(function () {
